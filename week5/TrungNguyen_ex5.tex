@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage[verbose]{placeins}
+
+\title{DATA.ML.300 Computer Vision Exercise 5}
+\author{Trung Nguyen}
+\date{January 2024}
+
+\begin{document}
+\maketitle
+\section{}
+\noindent 1a. Denote $cos(\theta)=Co$ and $sin(\theta)=Si$. We have:
+\begin{gather*}
+\begin{split}
+    X' &= s\begin{pmatrix} Co&-Si \\ Si&Co\end{pmatrix} *
+           X + \begin{pmatrix} t_1 \\ t_2 \end{pmatrix} \\ \\               
+    V &= X_2 - X_1 = \begin{pmatrix} x_2-x_1 \\ y_2-y_1 \end{pmatrix}
+                   = \begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} \\
+=> ||V|| &= \sqrt{\Delta x^2 + \Delta y^2} \\ \\
+    V' &= X_2' - X_1' = \begin{pmatrix} x'_2-x'_1 \\ y'_2-y'_1 \end{pmatrix}
+                   = \begin{pmatrix} \Delta x' \\ \Delta y' \end{pmatrix} \\\\
+=>  V' &= s\begin{pmatrix} Co&-Si \\ Si&Co\end{pmatrix} * (X_2 - X_1) \\
+       &= s\begin{pmatrix} Co&-Si \\ Si&Co\end{pmatrix}\begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} \\
+       &= \begin{pmatrix} sCo\Delta x - sSi\Delta y\\ 
+                          sSi\Delta x + sCo\Delta y \end{pmatrix} \\
+=> ||V'|| &= \sqrt{s^2Co^2\Delta x^2 + s^2Si^2\Delta y^2 + s^2Si^2\Delta x^2 + s^2Co^2\Delta y^2 - 2s^2CoSi\Delta x\Delta y + 2s^2CoSi\Delta x\Delta y} \\
+          &= s\sqrt{\Delta x^2(Co^2+Si^2) + \Delta y^2(Co^2+Si^2)} \\
+          &= s\sqrt{\Delta x^2 + \Delta y^2} \\
+          &= s||V|| \\ \\
+=> s &= \frac{||V'||}{||V||} = \frac{\sqrt{\Delta x'^2 + \Delta y'^2}}{\sqrt{\Delta x^2 + \Delta y^2}}\\ \\
+\end{split}
+\end{gather*}
+\noindent 1b. Using the V' equation \\
+\begin{gather*}
+\begin{split}
+    V' &= s\begin{pmatrix} Co&-Si \\ Si&Co\end{pmatrix} * (X_2 - X_1)
+       = s\begin{pmatrix} Co&-Si \\ Si&Co\end{pmatrix} V \\
+<=> \frac{V'}{||V'||} &= \frac{s}{||V'||}\begin{pmatrix} Co&-Si \\ Si&Co\end{pmatrix} V \\
+<=> \frac{V'}{||V'||} &= \begin{pmatrix} Co&-Si \\ Si&Co\end{pmatrix} \frac{V}{||V||} \\
+<=> V'_{unit} &= \begin{pmatrix} Co&-Si \\ Si&Co \end{pmatrix} V_{unit} \\
+\end{split}
+\end{gather*}
+\noindent Because $V'_{unit}$ and $V_{unit}$ are unit vectors. So $V'_{unit}V_{unit} = Co$
+\begin{gather*}
+=>  \theta = acos(V'_{unit}V_{unit}) = acos(V'*V    
+\end{gather*}
+\section{}
+Some webcam detection results of using SSD300 \\
+\begin{figure}[H]
+\centering
+\minipage{0.35\textwidth}
+  \includegraphics[width=\linewidth]{images/chair.png}
+\endminipage \hspace{0.05\textwidth}
+\minipage{0.35\textwidth}
+  \includegraphics[width=\linewidth]{images/monitor.png}
+\endminipage
+\caption{Object detection results of SSD300}
+\end{figure}
+\end{document}
